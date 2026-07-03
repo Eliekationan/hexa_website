@@ -34,6 +34,55 @@ export const siteConfig = {
     label: "Prendre rendez-vous",
     href: "/contact",
   },
+  hero: {
+    title: "L'ingénierie logicielle qui accélère votre croissance",
+    subtitle:
+      "HEXA conçoit des produits web, mobile et agentiques sur-mesure, du cadrage stratégique jusqu'à la mise en production.",
+    primaryCta: { label: "Prendre rendez-vous", href: "/contact" },
+    secondaryCta: { label: "Découvrir nos services", href: "#services" },
+  },
+  sections: {
+    services: {
+      eyebrow: "Ce que nous faisons",
+      title: "Des services pensés pour votre croissance",
+      description:
+        "De l'ingénierie logicielle à l'agentique, HEXA couvre l'ensemble du cycle de vie de vos produits numériques.",
+    },
+    stats: {
+      eyebrow: "Pourquoi HEXA",
+      title: "La confiance se mesure aux résultats",
+      description:
+        "Des années d'expertise mises au service de la fiabilité et de la satisfaction de nos clients.",
+    },
+    technologies: {
+      eyebrow: "Notre stack",
+      title: "Des technologies éprouvées",
+      description:
+        "Nous choisissons des outils robustes et éprouvés, adaptés à la taille et aux ambitions de chaque projet.",
+    },
+    process: {
+      eyebrow: "Notre méthode",
+      title: "Un processus clair, du cadrage à la maintenance",
+      description:
+        "Chaque projet suit les mêmes fondamentaux de rigueur, avec une transparence totale à chaque étape.",
+    },
+    projects: {
+      eyebrow: "Nos réalisations",
+      title: "Des projets qui font la différence",
+      description:
+        "Un aperçu de missions menées pour des clients dans le web, le mobile, l'agentique et le conseil.",
+    },
+    testimonials: {
+      eyebrow: "Ils nous font confiance",
+      title: "La parole à nos clients",
+      description: "",
+    },
+    faq: {
+      eyebrow: "Questions fréquentes",
+      title: "Tout ce qu'il faut savoir avant de démarrer",
+      description: "",
+    },
+  },
 } as const;
 
 export type SiteConfig = typeof siteConfig;

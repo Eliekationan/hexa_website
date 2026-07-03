@@ -73,3 +73,97 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+@keyframes hexa-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hexa-float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: var(--particle-opacity, 0.6);
+  }
+  50% {
+    transform: translate(var(--particle-drift-x, 10px), var(--particle-drift-y, -16px));
+    opacity: calc(var(--particle-opacity, 0.6) * 0.4);
+  }
+}
+
+@keyframes hexa-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+.animate-hexa-fade-up {
+  animation: hexa-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hexa-float {
+  animation: hexa-float var(--particle-duration, 8s) ease-in-out infinite;
+}
+
+.animate-hexa-pulse {
+  animation: hexa-pulse 6s ease-in-out infinite;
+}
+
+@keyframes hexa-pulse-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+}
+
+.animate-hexa-agent-pulse {
+  offset-rotate: 0deg;
+  animation: hexa-pulse-travel var(--pulse-duration, 3s) ease-in-out infinite;
+  animation-delay: var(--pulse-delay, 0s);
+}
+
+@keyframes hexa-border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-hexa-border {
+  background-image: linear-gradient(
+    120deg,
+    var(--color-primary),
+    var(--color-accent),
+    var(--color-primary)
+  );
+  background-size: 200% 200%;
+  animation: hexa-border-flow 6s linear infinite;
+}

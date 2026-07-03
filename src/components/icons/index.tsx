@@ -99,3 +99,68 @@ export function GitHubIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function EngineeringIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 1 5.4-5.4L15 12l-3-3Z" />
+    </svg>
+  );
+}
+
+export function ConsultingIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M12 3a7 7 0 0 0-4 12.7V18h8v-2.3A7 7 0 0 0 12 3Z" />
+      <path d="M9.5 21h5" />
+    </svg>
+  );
+}
+
+export function WebIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z" />
+    </svg>
+  );
+}
+
+export function MobileIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="7" y="2.5" width="10" height="19" rx="2" />
+      <path d="M11 18h2" />
+    </svg>
+  );
+}
+
+export function AgenticIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="5" y="7" width="14" height="12" rx="2" />
+      <path d="M12 7V3M9 3h6" />
+      <circle cx="9.5" cy="13" r="1.2" fill="currentColor" stroke="none" />
+      <circle cx="14.5" cy="13" r="1.2" fill="currentColor" stroke="none" />
+      <path d="M9 16.5h6" />
+    </svg>
+  );
+}
+
+export function DatabaseIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <ellipse cx="12" cy="6" rx="7" ry="3" />
+      <path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6" />
+      <path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3" />
+    </svg>
+  );
+}
+
+export function CloudIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M7 18h10a4 4 0 0 0 0-8 5.5 5.5 0 0 0-10.6-1.6A4.5 4.5 0 0 0 7 18Z" />
+    </svg>
+  );
+}
