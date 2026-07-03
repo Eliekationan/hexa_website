@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { contactFormSchema, sendContactMessage } from "@/lib/contact";
+import { contactFormSchema } from "@/lib/contact";
+import { sendContactMessage } from "@/lib/contact-server";
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;

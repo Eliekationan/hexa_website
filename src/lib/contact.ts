@@ -28,12 +28,3 @@ export const contactFormSchema = z.object({
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
-
-export async function sendContactMessage(data: Omit<ContactFormValues, "honeypot">) {
-  console.log("[contact] Nouveau message reçu :", {
-    nom: data.nom,
-    email: data.email,
-    sujet: data.sujet,
-    message: data.message,
-  });
-}
