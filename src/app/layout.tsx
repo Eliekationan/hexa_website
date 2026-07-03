@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { siteConfig } from "@/lib/site-config";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,8 +12,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "HEXA",
-  description: "HEXA — Ingénierie, conseil et développement web, mobile et agentique.",
+  title: siteConfig.name,
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
@@ -20,7 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={inter.variable}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

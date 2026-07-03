@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center gap-10 px-6 py-20">
+    <main className="flex min-h-screen flex-col items-center gap-10 px-6 pt-32 pb-20">
       <Logo />
       <SectionHeading
         eyebrow="Design system"

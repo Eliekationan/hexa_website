@@ -33,6 +33,7 @@ interface LinkButtonProps extends CommonProps {
   children?: React.ReactNode;
   target?: string;
   rel?: string;
+  onClick?: () => void;
   "aria-label"?: string;
 }
 
