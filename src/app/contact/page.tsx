@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="px-6 pt-32 pb-24">
+    <main id="main-content" className="px-6 pt-32 pb-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
+          as="h1"
           eyebrow="Contact"
           title="Discutons de votre projet"
           description="Décrivez-nous votre besoin, nous revenons vers vous sous 24h ouvrées."

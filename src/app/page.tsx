@@ -9,7 +9,7 @@ import { Faq } from "@/components/sections/Faq";
 
 export default function Home() {
   return (
-    <main>
+    <main id="main-content">
       <Hero />
       <Services />
       <Stats />

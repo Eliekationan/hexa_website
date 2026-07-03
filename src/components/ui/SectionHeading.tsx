@@ -6,6 +6,7 @@ interface SectionHeadingProps {
   description?: string;
   align?: "left" | "center";
   className?: string;
+  as?: "h1" | "h2";
 }
 
 export function SectionHeading({
@@ -14,6 +15,7 @@ export function SectionHeading({
   description,
   align = "center",
   className,
+  as: Heading = "h2",
 }: SectionHeadingProps) {
   return (
     <div
@@ -28,9 +30,9 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2 className="text-foreground text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+      <Heading className="text-foreground text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
         {title}
-      </h2>
+      </Heading>
       {description && <p className="text-muted max-w-2xl text-pretty">{description}</p>}
     </div>
   );

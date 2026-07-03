@@ -18,13 +18,13 @@ export default async function OpengraphImage() {
         gap: 24,
         background: "#05060a",
         backgroundImage:
-          "radial-gradient(circle at 50% 45%, rgba(109,94,252,0.35) 0%, rgba(34,211,238,0.15) 45%, transparent 75%)",
+          "radial-gradient(circle at 50% 45%, rgba(92,79,224,0.35) 0%, rgba(34,211,238,0.15) 45%, transparent 75%)",
       }}
     >
       <svg width="120" height="120" viewBox="0 0 32 32">
         <defs>
           <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#6d5efc" />
+            <stop offset="0%" stopColor="#5c4fe0" />
             <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
         </defs>
