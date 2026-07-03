@@ -10,7 +10,7 @@ Un commit est créé après chaque étape validée (case cochée).
 ## Étapes
 
 - [x] 1. Scaffolding Next.js 15 + TypeScript + Tailwind 4, ESLint/Prettier, structure de dossiers, git init.
-- [ ] 2. Design system : variables CSS de la palette, typographie Inter, composant Logo SVG, primitives UI (Button, Card, SectionHeading, Badge).
+- [x] 2. Design system : variables CSS de la palette, typographie Inter, composant Logo SVG, primitives UI (Button, Card, SectionHeading, Badge).
 - [ ] 3. Layout : Header fixe avec effet au scroll, menu mobile, Footer complet.
 - [ ] 4. Données : tous les fichiers de `src/data/` (services, technologies, stats, process, projets, témoignages, FAQ) et `src/lib/site-config.ts`.
 - [ ] 5. Sections de la page d'accueil, une par une : Hero (fond hexagonal animé), Services (Agentique mise en avant + animation d'agents), Stats animées, Technologies, Processus, Réalisations, Témoignages, FAQ.
@@ -23,3 +23,4 @@ Un commit est créé après chaque étape validée (case cochée).
 
 - Git a été initialisé correctement dans `hexa_website/` (un `.git` vide avait été trouvé par erreur à la racine du profil Windows et a été supprimé après confirmation utilisateur).
 - Aucune identité graphique (couleurs précises, contenu texte réel de l'entreprise) n'étant fournie dans CLAUDE.md/SPECS.md au-delà de « palette primaire/accent », des choix de design raisonnables seront faits et documentés au fil des étapes.
+- Palette choisie (étape 2) : thème sombre unique — fond `#05060a`, surfaces `#0b0e18`/`#121629`, primaire violet-indigo `#6d5efc`, accent cyan `#22d3ee`. Tokens exposés en variables CSS (`src/app/globals.css`) et mappés via `@theme inline` pour Tailwind 4. Typographie : Inter (`next/font/google`).
