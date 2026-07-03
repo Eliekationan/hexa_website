@@ -3,10 +3,9 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { ContactInfo } from "@/components/sections/ContactInfo";
 import { ContactMap } from "@/components/sections/ContactMap";
-import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: `Contact — ${siteConfig.name}`,
+  title: "Contact",
   description:
     "Contactez HEXA pour discuter de votre projet d'ingénierie, de conseil, de développement web, mobile ou agentique.",
 };

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { legalSections } from "@/data/legal";
-import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: `Mentions légales — ${siteConfig.name}`,
+  title: "Mentions légales",
   description:
     "Mentions légales du site HEXA : éditeur, hébergement, propriété intellectuelle et données personnelles.",
 };
