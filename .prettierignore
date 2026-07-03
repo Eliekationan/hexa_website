@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+build
+package-lock.json
+next-env.d.ts
+
+# documents de référence projet — ne pas reformater
+CLAUDE.md
+SPECS.md
+PLAN.md
