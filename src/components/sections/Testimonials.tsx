@@ -35,7 +35,10 @@ export function Testimonials() {
     const track = trackRef.current;
     if (!track) return;
     const slide = track.children[index] as HTMLElement | undefined;
-    slide?.scrollIntoView({ block: "nearest", inline: "start" });
+    if (!slide) return;
+    // Scroll only the carousel track itself (not scrollIntoView, which would
+    // also scroll the whole page if the carousel is currently off-screen).
+    track.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
   }, [index]);
 
   function handleInteractionStart() {
