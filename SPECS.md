@@ -21,10 +21,10 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Fermeture au clic sur un lien, sur la croix, ou touche Échap. Scroll du body bloqué quand le menu est ouvert.
 
 ### Critères d'acceptation
-- [ ] Le header change d'état au scroll dans les deux sens sans clignotement.
-- [ ] Aucune section n'est masquée par le header après un clic d'ancre.
-- [ ] Le menu mobile est navigable au clavier et piège le focus quand il est ouvert.
-- [ ] Le scroll-spy met en surbrillance la bonne section pendant le défilement.
+- [x] Le header change d'état au scroll dans les deux sens sans clignotement.
+- [x] Aucune section n'est masquée par le header après un clic d'ancre.
+- [x] Le menu mobile est navigable au clavier et piège le focus quand il est ouvert.
+- [x] Le scroll-spy met en surbrillance la bonne section pendant le défilement.
 
 ---
 
@@ -37,9 +37,9 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Si `prefers-reduced-motion` : particules et animations d'entrée désactivées, contenu affiché directement.
 
 ### Critères d'acceptation
-- [ ] Le hero occupe ~100vh sur desktop et reste lisible sur mobile 360px sans débordement.
-- [ ] L'animation de fond ne provoque aucun jank (pas de layout/paint en continu, uniquement compositor).
-- [ ] Le LCP est le titre du hero (texte), pas une image.
+- [x] Le hero occupe ~100vh sur desktop et reste lisible sur mobile 360px sans débordement.
+- [x] L'animation de fond ne provoque aucun jank (pas de layout/paint en continu, uniquement compositor).
+- [x] Le LCP est le titre du hero (texte), pas une image.
 
 ---
 
@@ -52,9 +52,9 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Carte Agentique : contient en plus l'animation d'agents — un mini-schéma SVG animé où 4–5 nœuds (agents) échangent des impulsions lumineuses le long de connexions, en boucle.
 
 ### Critères d'acceptation
-- [ ] La grille passe de 3 colonnes (desktop) à 2 (tablette) à 1 (mobile) sans carte orpheline disgracieuse.
-- [ ] L'animation d'agents tourne en continu sans consommer de CPU excessif et se fige si reduced-motion.
-- [ ] Tout le contenu vient de `services.ts` ; changer un texte ne demande de toucher qu'à ce fichier.
+- [x] La grille passe de 3 colonnes (desktop) à 2 (tablette) à 1 (mobile) sans carte orpheline disgracieuse.
+- [x] L'animation d'agents tourne en continu sans consommer de CPU excessif et se fige si reduced-motion.
+- [x] Tout le contenu vient de `services.ts` ; changer un texte ne demande de toucher qu'à ce fichier.
 
 ---
 
@@ -66,8 +66,8 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Reduced-motion : valeurs affichées directement.
 
 ### Critères d'acceptation
-- [ ] Le compteur ne se relance pas quand on rescrolle vers la section.
-- [ ] Aucune mise en page ne bouge pendant l'animation (largeur réservée pour le nombre final).
+- [x] Le compteur ne se relance pas quand on rescrolle vers la section.
+- [x] Aucune mise en page ne bouge pendant l'animation (largeur réservée pour le nombre final).
 
 ---
 
@@ -79,8 +79,8 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Chaque techno : icône + nom, léger effet au survol.
 
 ### Critères d'acceptation
-- [ ] Le changement de catégorie est instantané (< 100ms perçu) et animé.
-- [ ] L'état des onglets est accessible (role=tablist ou boutons avec aria-pressed).
+- [x] Le changement de catégorie est instantané (< 100ms perçu) et animé.
+- [x] L'état des onglets est accessible (role=tablist ou boutons avec aria-pressed).
 
 ---
 
@@ -93,8 +93,8 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Un trait de progression relie les étapes, animé au scroll.
 
 ### Critères d'acceptation
-- [ ] La timeline est lisible et complète sur 360px sans scroll horizontal.
-- [ ] Les descriptions sont accessibles au clavier (focus) et pas uniquement au survol.
+- [x] La timeline est lisible et complète sur 360px sans scroll horizontal.
+- [x] Les descriptions sont accessibles au clavier (focus) et pas uniquement au survol.
 
 ---
 
@@ -108,9 +108,9 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Survol d'une carte : zoom léger du visuel, apparition d'un overlay avec les tags.
 
 ### Critères d'acceptation
-- [ ] Le filtrage fonctionne sans rechargement ni saut de page.
-- [ ] L'état vide est géré et stylé.
-- [ ] Ajouter un projet = ajouter un objet dans `projects.ts`, rien d'autre.
+- [x] Le filtrage fonctionne sans rechargement ni saut de page.
+- [x] L'état vide est géré et stylé.
+- [x] Ajouter un projet = ajouter un objet dans `projects.ts`, rien d'autre.
 
 ---
 
@@ -122,8 +122,8 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Défilement automatique du carrousel toutes les 6s, mis en pause au survol/touch et si reduced-motion.
 
 ### Critères d'acceptation
-- [ ] Le carrousel est utilisable au doigt, au clavier (flèches) et via les points.
-- [ ] L'auto-play se met en pause à l'interaction et ne reprend pas brutalement.
+- [x] Le carrousel est utilisable au doigt, au clavier (flèches) et via les points.
+- [x] L'auto-play se met en pause à l'interaction et ne reprend pas brutalement.
 
 ---
 
@@ -136,8 +136,8 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Implémentation accessible : bouton avec `aria-expanded`, panneau avec `aria-hidden`/région, activable à la touche Entrée/Espace.
 
 ### Critères d'acceptation
-- [ ] Aucun saut de layout à l'ouverture/fermeture.
-- [ ] Entièrement utilisable au clavier avec états ARIA corrects.
+- [x] Aucun saut de layout à l'ouverture/fermeture.
+- [x] Entièrement utilisable au clavier avec états ARIA corrects.
 
 ---
 
@@ -159,10 +159,10 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Limitation simple : rejeter (429) plus de 5 soumissions par minute par IP (compteur en mémoire suffisant).
 
 ### Critères d'acceptation
-- [ ] Impossible de soumettre un formulaire invalide ; chaque erreur est lisible et localisée.
-- [ ] Le payload est revalidé côté serveur (test : un POST direct malformé reçoit un 400).
-- [ ] Les états loading, succès et erreur sont tous implémentés et stylés.
-- [ ] Le honeypot bloque une soumission automatisée sans affecter un utilisateur réel.
+- [x] Impossible de soumettre un formulaire invalide ; chaque erreur est lisible et localisée.
+- [x] Le payload est revalidé côté serveur (test : un POST direct malformé reçoit un 400).
+- [x] Les états loading, succès et erreur sont tous implémentés et stylés.
+- [x] Le honeypot bloque une soumission automatisée sans affecter un utilisateur réel.
 
 ---
 
@@ -174,8 +174,8 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Liens réseaux sociaux avec icônes, ouverture dans un nouvel onglet (`rel="noopener noreferrer"`).
 
 ### Critères d'acceptation
-- [ ] Changer une coordonnée ne demande de modifier que `site-config.ts`.
-- [ ] La carte ne bloque pas le rendu initial de la page.
+- [x] Changer une coordonnée ne demande de modifier que `site-config.ts`.
+- [x] La carte ne bloque pas le rendu initial de la page.
 
 ---
 
@@ -186,8 +186,8 @@ Ce document décrit le comportement attendu de chaque fonctionnalité. Chaque se
 - Ligne basse : © année courante calculée dynamiquement, lien « Mentions légales » vers `/mentions-legales` (page simple avec contenu type éditable dans `src/data/`).
 
 ### Critères d'acceptation
-- [ ] L'année est dynamique.
-- [ ] La page mentions légales existe et est liée (pas de lien mort).
+- [x] L'année est dynamique.
+- [x] La page mentions légales existe et est liée (pas de lien mort).
 
 ---
 
