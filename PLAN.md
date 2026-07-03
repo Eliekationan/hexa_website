@@ -12,7 +12,7 @@ Un commit est créé après chaque étape validée (case cochée).
 - [x] 1. Scaffolding Next.js 15 + TypeScript + Tailwind 4, ESLint/Prettier, structure de dossiers, git init.
 - [x] 2. Design system : variables CSS de la palette, typographie Inter, composant Logo SVG, primitives UI (Button, Card, SectionHeading, Badge).
 - [x] 3. Layout : Header fixe avec effet au scroll, menu mobile, Footer complet.
-- [ ] 4. Données : tous les fichiers de `src/data/` (services, technologies, stats, process, projets, témoignages, FAQ) et `src/lib/site-config.ts`.
+- [x] 4. Données : tous les fichiers de `src/data/` (services, technologies, stats, process, projets, témoignages, FAQ) et `src/lib/site-config.ts`.
 - [ ] 5. Sections de la page d'accueil, une par une : Hero (fond hexagonal animé), Services (Agentique mise en avant + animation d'agents), Stats animées, Technologies, Processus, Réalisations, Témoignages, FAQ.
 - [ ] 6. Page /contact : formulaire validé (zod + react-hook-form) + API route, coordonnées, carte.
 - [ ] 7. SEO : metadata, sitemap, robots, manifest, JSON-LD, favicon, image OG.
