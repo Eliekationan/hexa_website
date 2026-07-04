@@ -55,10 +55,11 @@ continue de fonctionner même sans configuration.
 - `src/components/icons/` — icônes SVG et logo.
 - `src/data/` — contenu du site (services, technologies, statistiques, processus, projets, témoignages, FAQ, mentions légales).
 - `src/lib/site-config.ts` — configuration globale du site (coordonnées, navigation, réseaux sociaux, textes de sections).
-- `src/lib/contact.ts` — schéma de validation et orchestration de l'envoi du formulaire de contact (`sendContactMessage`).
+- `src/lib/contact.ts` — schéma de validation zod du formulaire de contact (sûr pour le client).
+- `src/lib/contact-server.ts` — orchestration serveur de l'envoi (`sendContactMessage`), appelée uniquement par la route API.
 - `src/lib/email.ts` — envoi de l'email de notification via Resend.
 - `src/lib/supabase.ts` — archivage des messages en base via Supabase (voir `supabase/schema.sql`).
 
 ## Référence
 
-Voir `CLAUDE.md` (stack et étapes imposées) et `SPECS.md` (comportement détaillé et critères d'acceptation par fonctionnalité).
+Voir `CLAUDE.md` (stack et étapes imposées), `SPECS.md` (comportement détaillé et critères d'acceptation par fonctionnalité) et `DEPLOIEMENT.md` (analyse d'hébergement, coûts et manuel de mise en production).
