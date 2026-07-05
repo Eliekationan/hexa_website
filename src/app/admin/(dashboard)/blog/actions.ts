@@ -9,6 +9,7 @@ import {
 } from "@/lib/blog-schema";
 import { createPost, updatePost, deletePost, generateUniqueSlug } from "@/lib/blog";
 import { generateBlogDraft } from "@/lib/ai-draft";
+import { uploadBlogImage } from "@/lib/blog-storage";
 
 async function requireAdmin() {
   const user = await getAdminUser();
@@ -77,4 +78,13 @@ export async function generateDraftAction(topic: string) {
     throw new Error("Sujet requis.");
   }
   return generateBlogDraft(topic.trim());
+}
+
+export async function uploadCoverImageAction(formData: FormData): Promise<string> {
+  await requireAdmin();
+  const file = formData.get("file");
+  if (!(file instanceof File)) {
+    throw new Error("Fichier manquant.");
+  }
+  return uploadBlogImage(file);
 }

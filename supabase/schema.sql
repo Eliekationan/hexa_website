@@ -42,3 +42,11 @@ alter table blog_posts enable row level security;
 create policy "Lecture publique des articles publiés" on blog_posts
   for select
   using (status = 'published');
+
+-- Bucket de stockage pour les images de couverture uploadées depuis
+-- l'éditeur d'articles (/admin/blog). Bucket public : les images sont
+-- servies directement via leur URL publique, sans policy RLS de lecture
+-- nécessaire. Écriture uniquement depuis le serveur via service_role.
+insert into storage.buckets (id, name, public)
+values ('blog-images', 'blog-images', true)
+on conflict (id) do nothing;

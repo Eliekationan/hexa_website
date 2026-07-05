@@ -9,7 +9,12 @@ import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { blogPostFormSchema, type BlogPostFormValues } from "@/lib/blog-schema";
-import { createPostAction, updatePostAction, generateDraftAction } from "./actions";
+import {
+  createPostAction,
+  updatePostAction,
+  generateDraftAction,
+  uploadCoverImageAction,
+} from "./actions";
 
 interface PostFormProps {
   mode: "create" | "edit";
@@ -37,6 +42,8 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
   const [topic, setTopic] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const {
     register,
@@ -50,6 +57,26 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
   });
 
   const contentValue = watch("content") ?? "";
+  const coverImageUrlValue = watch("coverImageUrl");
+
+  async function onUploadCoverImage(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    setUploadError(null);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const url = await uploadCoverImageAction(formData);
+      setValue("coverImageUrl", url, { shouldValidate: true });
+    } catch {
+      setUploadError("Échec de l'envoi. Réessayez avec une image plus légère (< 5 Mo).");
+    } finally {
+      setIsUploading(false);
+      event.target.value = "";
+    }
+  }
 
   async function onGenerateDraft() {
     if (!topic.trim()) return;
@@ -202,9 +229,46 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
 
       <div className="flex flex-col gap-2">
         <label htmlFor="coverImageUrl" className="text-foreground text-sm font-medium">
-          Image de couverture (URL, optionnel)
+          Image de couverture (optionnel)
         </label>
-        <input id="coverImageUrl" className={inputClass} {...register("coverImageUrl")} />
+        <div className="flex flex-wrap items-center gap-3">
+          <input
+            type="file"
+            accept="image/*"
+            disabled={isUploading}
+            onChange={onUploadCoverImage}
+            className="text-foreground/80 file:bg-surface-2 file:text-foreground hover:file:bg-border-strong text-sm file:mr-3 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-medium"
+          />
+          {isUploading && <span className="text-foreground/60 text-xs">Envoi…</span>}
+        </div>
+        <input
+          id="coverImageUrl"
+          placeholder="ou collez une URL d'image"
+          className={inputClass}
+          {...register("coverImageUrl")}
+        />
+        {coverImageUrlValue && (
+          <div className="flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={coverImageUrlValue}
+              alt=""
+              className="border-border-strong h-24 w-40 rounded-lg border object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => setValue("coverImageUrl", "", { shouldValidate: true })}
+              className="text-xs text-red-400 hover:underline"
+            >
+              Retirer l&apos;image
+            </button>
+          </div>
+        )}
+        {uploadError && (
+          <p role="alert" className="text-sm text-red-400">
+            {uploadError}
+          </p>
+        )}
         {errors.coverImageUrl && (
           <p role="alert" className="text-sm text-red-400">
             {errors.coverImageUrl.message}

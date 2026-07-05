@@ -42,9 +42,13 @@ continue de fonctionner même sans configuration.
 Le blog (`/blog`, `/admin/blog`) réutilise le même projet Supabase que le
 formulaire de contact. Étapes de mise en service :
 
-1. **Table `blog_posts`** : exécuter `supabase/schema.sql` (mis à jour) dans
-   l'éditeur SQL du projet Supabase — il contient désormais aussi la table du
-   blog et sa policy RLS.
+1. **Table `blog_posts` et bucket `blog-images`** : exécuter `supabase/schema.sql`
+   (mis à jour) dans l'éditeur SQL du projet Supabase — il contient désormais
+   aussi la table du blog, sa policy RLS et le bucket de stockage public
+   `blog-images` (upload des images de couverture depuis l'éditeur). Si la
+   création du bucket par SQL échoue (permissions selon le plan Supabase),
+   le créer manuellement dans Storage > New bucket, nommé `blog-images`,
+   coché "Public bucket".
 2. **Authentification admin (Supabase Auth)** : dans Project Settings > API,
    récupérer la clé `anon` (publique) et l'URL du projet, puis renseigner
    `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Créer
@@ -79,7 +83,7 @@ brouillon (statut `draft`), à relire et publier manuellement depuis
 ## Structure
 
 - `src/app/` — pages et routes (App Router), y compris `/api/contact` et les fichiers SEO (`sitemap.ts`, `robots.ts`, `manifest.ts`, `opengraph-image.tsx`).
-- `src/app/blog/` — pages publiques du blog (`/blog`, `/blog/[slug]`, image OG par article, flux RSS).
+- `src/app/(site)/` — pages publiques (`/`, `/contact`, `/mentions-legales`, `/blog`, `/blog/[slug]`), avec leur propre layout (Header/Footer du site) distinct de `/admin`.
 - `src/app/admin/` — interface d'administration du blog (`/admin/login`, `/admin/blog`), protégée par `src/middleware.ts`.
 - `src/app/api/cron/generate-draft/` — route planifiée (`vercel.json`) qui génère un brouillon d'article par IA.
 - `src/components/ui/` — primitives (Button, Card, Badge, SectionHeading).
@@ -96,6 +100,7 @@ brouillon (statut `draft`), à relire et publier manuellement depuis
 - `src/lib/blog.ts` / `src/lib/blog-schema.ts` — CRUD serveur et validation zod des articles de blog.
 - `src/lib/auth/` — authentification admin (Supabase Auth) : client lié aux cookies, middleware, Server Actions de connexion/déconnexion.
 - `src/lib/ai-draft.ts` — génération de brouillons d'articles via l'API Claude (Anthropic).
+- `src/lib/blog-storage.ts` — upload des images de couverture vers le bucket Supabase Storage `blog-images`.
 
 ## Référence
 
