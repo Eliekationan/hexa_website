@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getAdminUser } from "@/lib/auth/server";
 import { blogPostFormSchema, parseTags, type BlogPostFormValues } from "@/lib/blog-schema";
 import { createPost, updatePost, deletePost, generateUniqueSlug } from "@/lib/blog";
+import { generateBlogDraft } from "@/lib/ai-draft";
 
 async function requireAdmin() {
   const user = await getAdminUser();
@@ -64,4 +65,12 @@ export async function deletePostAction(id: string, slug: string) {
   await requireAdmin();
   await deletePost(id);
   revalidateBlog(slug);
+}
+
+export async function generateDraftAction(topic: string) {
+  await requireAdmin();
+  if (!topic.trim()) {
+    throw new Error("Sujet requis.");
+  }
+  return generateBlogDraft(topic.trim());
 }

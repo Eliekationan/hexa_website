@@ -9,7 +9,7 @@ import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { blogPostFormSchema, type BlogPostFormValues } from "@/lib/blog-schema";
-import { createPostAction, updatePostAction } from "./actions";
+import { createPostAction, updatePostAction, generateDraftAction } from "./actions";
 
 interface PostFormProps {
   mode: "create" | "edit";
@@ -34,11 +34,15 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
   const [showPreview, setShowPreview] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [topic, setTopic] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<BlogPostFormValues>({
     resolver: zodResolver(blogPostFormSchema),
@@ -46,6 +50,26 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
   });
 
   const contentValue = watch("content") ?? "";
+
+  async function onGenerateDraft() {
+    if (!topic.trim()) return;
+    setIsGenerating(true);
+    setGenerationError(null);
+    try {
+      const draft = await generateDraftAction(topic);
+      setValue("title", draft.title, { shouldValidate: true });
+      setValue("excerpt", draft.excerpt, { shouldValidate: true });
+      setValue("content", draft.content, { shouldValidate: true });
+      setValue("tags", draft.tags.join(", "));
+      setValue("seoTitle", draft.seoTitle);
+      setValue("seoDescription", draft.seoDescription);
+      setShowPreview(false);
+    } catch {
+      setGenerationError("La génération a échoué. Réessayez ou rédigez manuellement.");
+    } finally {
+      setIsGenerating(false);
+    }
+  }
 
   async function onSubmit(values: BlogPostFormValues) {
     setIsSubmitting(true);
@@ -69,6 +93,32 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2 rounded-lg border border-border-strong bg-surface-2 p-4">
+        <label htmlFor="ai-topic" className="text-sm font-medium text-foreground">
+          Générer un brouillon avec l&apos;IA
+        </label>
+        <div className="flex gap-3">
+          <input
+            id="ai-topic"
+            placeholder="Sujet de l'article, ex : les bénéfices de l'agentique pour les PME"
+            className={inputClass}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+          />
+          <Button type="button" variant="secondary" disabled={isGenerating || !topic.trim()} onClick={onGenerateDraft}>
+            {isGenerating ? "Génération…" : "Générer"}
+          </Button>
+        </div>
+        <p className="text-xs text-foreground/60">
+          Remplit titre, extrait, contenu, tags et SEO ci-dessous — à relire avant de publier.
+        </p>
+        {generationError && (
+          <p role="alert" className="text-sm text-red-400">
+            {generationError}
+          </p>
+        )}
+      </div>
+
       <div className="flex flex-col gap-2">
         <label htmlFor="title" className="text-sm font-medium text-foreground">
           Titre
