@@ -37,7 +37,13 @@ export function Header() {
   }, [pathname]);
 
   const activeHref =
-    pathname === "/contact" ? "/contact" : activeSection ? `#${activeSection}` : null;
+    pathname === "/contact"
+      ? "/contact"
+      : pathname?.startsWith("/blog")
+        ? "/blog"
+        : activeSection
+          ? `#${activeSection}`
+          : null;
 
   return (
     <>
