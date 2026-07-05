@@ -9,10 +9,15 @@ const PUBLIC_ADMIN_PATHS = ["/admin/login"];
 export async function updateAdminSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  const isPublicAdminPath = PUBLIC_ADMIN_PATHS.some((path) =>
+    request.nextUrl.pathname.startsWith(path),
+  );
+
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Auth non configurée : on laisse passer plutôt que de casser tout /admin
-    // en local avant que les variables d'environnement soient renseignées.
-    return response;
+    // Auth non configurée : on bloque l'accès (redirection vers /admin/login)
+    // plutôt que de laisser passer, pour ne jamais exposer /admin par défaut.
+    if (isPublicAdminPath) return response;
+    return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
@@ -35,10 +40,6 @@ export async function updateAdminSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const isPublicAdminPath = PUBLIC_ADMIN_PATHS.some((path) =>
-    request.nextUrl.pathname.startsWith(path),
-  );
 
   if (!user && !isPublicAdminPath) {
     const loginUrl = new URL("/admin/login", request.url);
