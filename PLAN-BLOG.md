@@ -13,7 +13,7 @@ Objectif : publier un article par jour pour générer du trafic organique. Stock
 - [x] 5. Automatisation quotidienne (optionnelle) : Vercel Cron générant chaque jour un brouillon à partir d'une liste de sujets SEO prédéfinis, laissé en `draft` pour relecture — jamais publié automatiquement.
 - [x] 6. Pages publiques : `/blog` (liste paginée, filtres par tag), `/blog/[slug]` (article rendu, temps de lecture, articles liés), lien Blog dans Header/Footer.
 - [x] 7. SEO : metadata dynamique par article, `sitemap.ts` mis à jour (articles publiés), JSON-LD `BlogPosting`, image OG dynamique par article, flux RSS.
-- [ ] 8. Validation : build, tsc, lint — corriger jusqu'à ce que tout passe ; test manuel de bout en bout (générer un brouillon IA → relire → publier → vérifier `/blog`, sitemap, JSON-LD).
+- [x] 8. Validation : build, tsc, lint — corriger jusqu'à ce que tout passe ; test manuel de bout en bout (générer un brouillon IA → relire → publier → vérifier `/blog`, sitemap, JSON-LD).
 
 ## Dépendances nouvelles (validées avec l'utilisateur)
 
@@ -21,6 +21,19 @@ Objectif : publier un article par jour pour générer du trafic organique. Stock
 - `@supabase/ssr` (session Auth côté App Router)
 - `reading-time` (temps de lecture)
 - Clé API Anthropic (`ANTHROPIC_API_KEY`) pour la génération de brouillons
+
+## Validation finale (étape 8)
+
+- `npx prettier --check .` : ✅ (un passage `prettier --write` a été nécessaire — les fichiers créés aux étapes 1-7 n'étaient pas passés dans le formateur au fil de l'eau, corrigé et committé séparément).
+- `npm run lint` (ESLint) : ✅ aucune erreur ni avertissement.
+- `npx tsc --noEmit` : ✅ aucune erreur.
+- `npm run build` : ✅ succès, toutes les routes du blog générées (`/blog`, `/blog/[slug]`, `/blog/[slug]/opengraph-image`, `/blog/rss.xml`, `/admin/blog`, `/admin/blog/new`, `/admin/blog/[id]/edit`, `/admin/login`, `/api/cron/generate-draft`), middleware bien reconnu (`ƒ Middleware`).
+- Test de bout en bout **partiellement bloqué par des prérequis externes** que je ne peux pas configurer moi-même (identifiants tiers) : le code est écrit, testé unitairement par la compilation et par des requêtes HTTP réelles (`npm run start` + `curl`) à chaque étape, mais le scénario complet « générer un brouillon IA → relire → publier → vérifier `/blog` » nécessite que l'utilisateur :
+  1. exécute `supabase/schema.sql` (mis à jour) dans l'éditeur SQL du projet Supabase réel — sans ça, `/blog`, `/admin/blog` etc. renvoient une erreur `PGRST205` (table absente), confirmé dans les logs pendant les tests des étapes 6 et 7 ;
+  2. renseigne `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` dans `.env.local` et crée un compte dans Supabase Auth (Authentication > Users) ;
+  3. renseigne `ANTHROPIC_API_KEY` pour activer la génération IA ;
+  4. (optionnel) renseigne `CRON_SECRET` en local et sur Vercel pour activer le cron quotidien.
+- Ce qui a été vérifié réellement, sans ces prérequis : le middleware protège correctement `/admin/**` (redirection 307 vers `/admin/login` tant qu'aucune session n'existe, y compris quand l'auth n'est pas configurée — fail-closed) ; la route cron refuse toute requête sans `CRON_SECRET` valide (401) ; le sitemap et le flux RSS se dégradent proprement (sans crasher) tant que la table Supabase n'existe pas ; toutes les pages compilent et se génèrent sans erreur au build.
 
 ## Notes
 
