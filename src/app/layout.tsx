@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { SkipLink } from "@/components/layout/SkipLink";
 import { siteConfig } from "@/lib/site-config";
 
 const inter = Inter({
@@ -77,10 +74,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <SkipLink />
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );

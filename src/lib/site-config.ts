@@ -27,6 +27,7 @@ export const siteConfig = {
     { label: "Technologies", href: "#technologies" },
     { label: "Processus", href: "#processus" },
     { label: "Réalisations", href: "#realisations" },
+    { label: "Blog", href: "/blog" },
     { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "/contact" },
   ],
@@ -76,6 +77,12 @@ export const siteConfig = {
       eyebrow: "Ils nous font confiance",
       title: "La parole à nos clients",
       description: "",
+    },
+    blog: {
+      eyebrow: "Blog",
+      title: "Actualités, conseils et retours d'expérience",
+      description:
+        "Ingénierie logicielle, développement web et mobile, agentique / IA : nos analyses pour éclairer vos décisions technologiques.",
     },
     faq: {
       eyebrow: "Questions fréquentes",
