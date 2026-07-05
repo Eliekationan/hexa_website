@@ -12,7 +12,10 @@ const PAGE_SIZE = 9;
 export const metadata: Metadata = {
   title: siteConfig.sections.blog.title,
   description: siteConfig.sections.blog.description,
-  alternates: { canonical: "/blog" },
+  alternates: {
+    canonical: "/blog",
+    types: { "application/rss+xml": "/blog/rss.xml" },
+  },
 };
 
 interface BlogIndexPageProps {
