@@ -38,6 +38,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ ok: true, postId: post.id, slug: post.slug, topic });
   } catch (error) {
     console.error("[cron/generate-draft] échec de la génération :", error);
-    return NextResponse.json({ error: "Échec de la génération du brouillon." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Échec de la génération du brouillon." },
+      { status: 500 },
+    );
   }
 }

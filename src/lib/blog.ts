@@ -83,7 +83,10 @@ export function slugify(title: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-export async function generateUniqueSlug(title: string, ignoreId?: string): Promise<string> {
+export async function generateUniqueSlug(
+  title: string,
+  ignoreId?: string,
+): Promise<string> {
   const supabase = requireSupabase();
   const base = slugify(title) || "article";
   let candidate = base;
@@ -180,7 +183,8 @@ export async function updatePost(id: string, input: BlogPostInput): Promise<Blog
     throw new Error(`[blog] Article introuvable : ${id}`);
   }
 
-  const becomingPublished = input.status === "published" && existing.status !== "published";
+  const becomingPublished =
+    input.status === "published" && existing.status !== "published";
 
   const { data, error } = await supabase
     .from("blog_posts")

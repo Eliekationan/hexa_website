@@ -4,7 +4,15 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { deletePostAction } from "./actions";
 
-export function DeletePostButton({ id, slug, title }: { id: string; slug: string; title: string }) {
+export function DeletePostButton({
+  id,
+  slug,
+  title,
+}: {
+  id: string;
+  slug: string;
+  title: string;
+}) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [confirming, setConfirming] = useState(false);

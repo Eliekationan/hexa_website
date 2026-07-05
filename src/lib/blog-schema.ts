@@ -10,7 +10,10 @@ export const blogPostFormSchema = z.object({
     .string()
     .trim()
     .max(160, "Le slug ne peut pas dépasser 160 caractères.")
-    .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "Le slug ne peut contenir que des lettres minuscules, chiffres et tirets.")
+    .regex(
+      /^[a-z0-9]+(-[a-z0-9]+)*$/,
+      "Le slug ne peut contenir que des lettres minuscules, chiffres et tirets.",
+    )
     .optional()
     .or(z.literal("")),
   excerpt: z

@@ -14,9 +14,11 @@ interface BlogPostPageProps {
 }
 
 function formatDate(iso: string) {
-  return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(
-    new Date(iso),
-  );
+  return new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(iso));
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
@@ -77,17 +79,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Link href="/blog" className="text-sm text-accent hover:underline">
+      <Link href="/blog" className="text-accent text-sm hover:underline">
         ← Retour au blog
       </Link>
 
       <header className="mt-6 flex flex-col gap-4">
-        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
+        <div className="text-muted flex flex-wrap items-center gap-2 text-xs">
           {post.publishedAt && <span>{formatDate(post.publishedAt)}</span>}
           <span aria-hidden="true">·</span>
           <span>{minutes} min de lecture</span>
         </div>
-        <h1 className="text-3xl font-semibold tracking-tight text-foreground text-balance sm:text-4xl">
+        <h1 className="text-foreground text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
           {post.title}
         </h1>
         {post.tags.length > 0 && (
@@ -106,17 +108,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <img
           src={post.coverImageUrl}
           alt=""
-          className="mt-8 w-full rounded-2xl border border-border-strong object-cover"
+          className="border-border-strong mt-8 w-full rounded-2xl border object-cover"
         />
       )}
 
-      <div className="markdown-preview mt-10 text-foreground">
+      <div className="markdown-preview text-foreground mt-10">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
       </div>
 
       {related.length > 0 && (
         <section className="mt-20">
-          <h2 className="text-xl font-semibold text-foreground">Articles liés</h2>
+          <h2 className="text-foreground text-xl font-semibold">Articles liés</h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((relatedPost) => (
               <ArticleCard key={relatedPost.id} post={relatedPost} />

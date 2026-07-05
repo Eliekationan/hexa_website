@@ -13,15 +13,17 @@ export default function AdminLoginPage() {
     <main className="flex min-h-screen items-center justify-center px-4">
       <form
         action={formAction}
-        className="w-full max-w-sm space-y-5 rounded-2xl border border-border-strong bg-surface-2 p-8"
+        className="border-border-strong bg-surface-2 w-full max-w-sm space-y-5 rounded-2xl border p-8"
       >
         <div>
-          <h1 className="text-xl font-semibold text-foreground">Administration HEXA</h1>
-          <p className="mt-1 text-sm text-foreground/60">Connexion réservée à l&apos;équipe.</p>
+          <h1 className="text-foreground text-xl font-semibold">Administration HEXA</h1>
+          <p className="text-foreground/60 mt-1 text-sm">
+            Connexion réservée à l&apos;équipe.
+          </p>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium text-foreground">
+          <label htmlFor="email" className="text-foreground text-sm font-medium">
             Email
           </label>
           <input
@@ -30,12 +32,12 @@ export default function AdminLoginPage() {
             type="email"
             required
             autoComplete="username"
-            className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none focus-visible:outline-2 focus-visible:outline-accent"
+            className="border-border-strong bg-background text-foreground focus-visible:outline-accent w-full rounded-lg border px-3 py-2 text-sm outline-none focus-visible:outline-2"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="password" className="text-sm font-medium text-foreground">
+          <label htmlFor="password" className="text-foreground text-sm font-medium">
             Mot de passe
           </label>
           <input
@@ -44,7 +46,7 @@ export default function AdminLoginPage() {
             type="password"
             required
             autoComplete="current-password"
-            className="w-full rounded-lg border border-border-strong bg-background px-3 py-2 text-sm text-foreground outline-none focus-visible:outline-2 focus-visible:outline-accent"
+            className="border-border-strong bg-background text-foreground focus-visible:outline-accent w-full rounded-lg border px-3 py-2 text-sm outline-none focus-visible:outline-2"
           />
         </div>
 

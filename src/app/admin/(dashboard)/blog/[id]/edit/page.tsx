@@ -2,7 +2,11 @@ import { notFound } from "next/navigation";
 import { getPostByIdAdmin } from "@/lib/blog";
 import { PostForm } from "../../PostForm";
 
-export default async function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function EditPostPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const post = await getPostByIdAdmin(id);
 
@@ -12,7 +16,7 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-lg font-semibold text-foreground">Modifier « {post.title} »</h1>
+      <h1 className="text-foreground text-lg font-semibold">Modifier « {post.title} »</h1>
       <PostForm
         mode="edit"
         postId={post.id}

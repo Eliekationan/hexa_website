@@ -93,8 +93,8 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
-      <div className="flex flex-col gap-2 rounded-lg border border-border-strong bg-surface-2 p-4">
-        <label htmlFor="ai-topic" className="text-sm font-medium text-foreground">
+      <div className="border-border-strong bg-surface-2 flex flex-col gap-2 rounded-lg border p-4">
+        <label htmlFor="ai-topic" className="text-foreground text-sm font-medium">
           Générer un brouillon avec l&apos;IA
         </label>
         <div className="flex gap-3">
@@ -105,12 +105,18 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
           />
-          <Button type="button" variant="secondary" disabled={isGenerating || !topic.trim()} onClick={onGenerateDraft}>
+          <Button
+            type="button"
+            variant="secondary"
+            disabled={isGenerating || !topic.trim()}
+            onClick={onGenerateDraft}
+          >
             {isGenerating ? "Génération…" : "Générer"}
           </Button>
         </div>
-        <p className="text-xs text-foreground/60">
-          Remplit titre, extrait, contenu, tags et SEO ci-dessous — à relire avant de publier.
+        <p className="text-foreground/60 text-xs">
+          Remplit titre, extrait, contenu, tags et SEO ci-dessous — à relire avant de
+          publier.
         </p>
         {generationError && (
           <p role="alert" className="text-sm text-red-400">
@@ -120,7 +126,7 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="title" className="text-sm font-medium text-foreground">
+        <label htmlFor="title" className="text-foreground text-sm font-medium">
           Titre
         </label>
         <input id="title" className={inputClass} {...register("title")} />
@@ -132,10 +138,15 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="slug" className="text-sm font-medium text-foreground">
+        <label htmlFor="slug" className="text-foreground text-sm font-medium">
           Slug (optionnel — généré depuis le titre si vide)
         </label>
-        <input id="slug" placeholder="mon-article" className={inputClass} {...register("slug")} />
+        <input
+          id="slug"
+          placeholder="mon-article"
+          className={inputClass}
+          {...register("slug")}
+        />
         {errors.slug && (
           <p role="alert" className="text-sm text-red-400">
             {errors.slug.message}
@@ -144,7 +155,7 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="excerpt" className="text-sm font-medium text-foreground">
+        <label htmlFor="excerpt" className="text-foreground text-sm font-medium">
           Extrait
         </label>
         <textarea id="excerpt" rows={2} className={inputClass} {...register("excerpt")} />
@@ -157,19 +168,19 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <label htmlFor="content" className="text-sm font-medium text-foreground">
+          <label htmlFor="content" className="text-foreground text-sm font-medium">
             Contenu (Markdown)
           </label>
           <button
             type="button"
             onClick={() => setShowPreview((v) => !v)}
-            className="text-xs text-accent hover:underline"
+            className="text-accent text-xs hover:underline"
           >
             {showPreview ? "Revenir à l'édition" : "Prévisualiser"}
           </button>
         </div>
         {showPreview ? (
-          <div className="markdown-preview rounded-lg border border-border-strong bg-background px-4 py-3 text-sm text-foreground">
+          <div className="markdown-preview border-border-strong bg-background text-foreground rounded-lg border px-4 py-3 text-sm">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {contentValue || "*Rien à prévisualiser.*"}
             </ReactMarkdown>
@@ -190,7 +201,7 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="coverImageUrl" className="text-sm font-medium text-foreground">
+        <label htmlFor="coverImageUrl" className="text-foreground text-sm font-medium">
           Image de couverture (URL, optionnel)
         </label>
         <input id="coverImageUrl" className={inputClass} {...register("coverImageUrl")} />
@@ -202,15 +213,20 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="tags" className="text-sm font-medium text-foreground">
+        <label htmlFor="tags" className="text-foreground text-sm font-medium">
           Tags (séparés par des virgules)
         </label>
-        <input id="tags" placeholder="ia, agentique, actualité" className={inputClass} {...register("tags")} />
+        <input
+          id="tags"
+          placeholder="ia, agentique, actualité"
+          className={inputClass}
+          {...register("tags")}
+        />
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <label htmlFor="seoTitle" className="text-sm font-medium text-foreground">
+          <label htmlFor="seoTitle" className="text-foreground text-sm font-medium">
             Titre SEO (optionnel)
           </label>
           <input id="seoTitle" className={inputClass} {...register("seoTitle")} />
@@ -221,10 +237,14 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="seoDescription" className="text-sm font-medium text-foreground">
+          <label htmlFor="seoDescription" className="text-foreground text-sm font-medium">
             Description SEO (optionnel)
           </label>
-          <input id="seoDescription" className={inputClass} {...register("seoDescription")} />
+          <input
+            id="seoDescription"
+            className={inputClass}
+            {...register("seoDescription")}
+          />
           {errors.seoDescription && (
             <p role="alert" className="text-sm text-red-400">
               {errors.seoDescription.message}
@@ -234,7 +254,7 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="status" className="text-sm font-medium text-foreground">
+        <label htmlFor="status" className="text-foreground text-sm font-medium">
           Statut
         </label>
         <select id="status" className={inputClass} {...register("status")}>
@@ -251,9 +271,17 @@ export function PostForm({ mode, postId, defaultValues }: PostFormProps) {
 
       <div className="flex gap-3">
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Enregistrement…" : mode === "create" ? "Créer l'article" : "Enregistrer"}
+          {isSubmitting
+            ? "Enregistrement…"
+            : mode === "create"
+              ? "Créer l'article"
+              : "Enregistrer"}
         </Button>
-        <Button type="button" variant="secondary" onClick={() => router.push("/admin/blog")}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() => router.push("/admin/blog")}
+        >
           Annuler
         </Button>
       </div>

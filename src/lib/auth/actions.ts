@@ -13,7 +13,10 @@ export interface SignInState {
   error: string | null;
 }
 
-export async function signIn(_prevState: SignInState, formData: FormData): Promise<SignInState> {
+export async function signIn(
+  _prevState: SignInState,
+  formData: FormData,
+): Promise<SignInState> {
   const parsed = credentialsSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),

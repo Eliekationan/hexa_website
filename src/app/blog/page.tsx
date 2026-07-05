@@ -64,7 +64,7 @@ export default async function BlogIndexPage({ searchParams }: BlogIndexPageProps
       )}
 
       {pageItems.length === 0 ? (
-        <p className="mt-16 text-center text-muted">Aucun article pour le moment.</p>
+        <p className="text-muted mt-16 text-center">Aucun article pour le moment.</p>
       ) : (
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {pageItems.map((post) => (
@@ -84,8 +84,10 @@ export default async function BlogIndexPage({ searchParams }: BlogIndexPageProps
               href={pageHref(p)}
               aria-current={p === page ? "page" : undefined}
               className={cn(
-                "flex h-9 w-9 items-center justify-center rounded-full border border-border-strong transition-colors",
-                p === page ? "bg-primary text-primary-foreground" : "text-foreground/70 hover:text-accent",
+                "border-border-strong flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
+                p === page
+                  ? "bg-primary text-primary-foreground"
+                  : "text-foreground/70 hover:text-accent",
               )}
             >
               {p}

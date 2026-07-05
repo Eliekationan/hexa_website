@@ -15,10 +15,10 @@ export default async function AdminDashboardLayout({
 
   return (
     <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-8">
-      <header className="mb-8 flex items-center justify-between border-b border-border-strong pb-4">
+      <header className="border-border-strong mb-8 flex items-center justify-between border-b pb-4">
         <div>
-          <p className="text-sm font-semibold text-foreground">Administration HEXA</p>
-          {user && <p className="text-xs text-foreground/60">{user.email}</p>}
+          <p className="text-foreground text-sm font-semibold">Administration HEXA</p>
+          {user && <p className="text-foreground/60 text-xs">{user.email}</p>}
         </div>
         <form action={signOut}>
           <Button type="submit" variant="secondary" size="sm">
