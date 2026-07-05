@@ -6,7 +6,7 @@ Objectif : publier un article par jour pour générer du trafic organique. Stock
 
 ## Étapes
 
-- [ ] 1. Modèle de données : migration `supabase/migrations/xxx_blog.sql` créant la table `blog_posts` (slug, title, excerpt, content markdown, cover_image_url, tags, status draft/published, published_at, seo_title, seo_description, created_at, updated_at) + RLS (lecture publique des articles publiés uniquement, écriture réservée à la clé service_role).
+- [x] 1. Modèle de données : table `blog_posts` ajoutée à `supabase/schema.sql` (slug, title, excerpt, content markdown, cover_image_url, tags, status draft/published, published_at, seo_title, seo_description, created_at, updated_at) + RLS (lecture publique des articles publiés uniquement ; écriture toujours via service_role, comme `contact_messages`) ; `src/lib/blog.ts` (types + CRUD serveur : `getPublishedPosts`, `getPublishedPostBySlug`, `getAllPostsAdmin`, `getPostByIdAdmin`, `createPost`, `updatePost`, `deletePost`, `generateUniqueSlug`).
 - [ ] 2. Authentification admin : Supabase Auth (email/password, compte unique), middleware Next.js protégeant `/admin/**`, page de connexion.
 - [ ] 3. Interface d'administration : `/admin/blog` (liste brouillons/publiés), création/édition/suppression, éditeur markdown avec prévisualisation (react-hook-form + zod).
 - [ ] 4. Génération IA de brouillons : route API appelant l'API Claude (Anthropic) pour produire titre + extrait + contenu + tags à partir d'un sujet donné ; bouton dédié dans l'éditeur, résultat toujours en statut `draft`.
