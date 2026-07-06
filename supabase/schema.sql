@@ -50,3 +50,23 @@ create policy "Lecture publique des articles publiés" on blog_posts
 insert into storage.buckets (id, name, public)
 values ('blog-images', 'blog-images', true)
 on conflict (id) do nothing;
+
+-- Demandes de devis qualifiées par l'agent IA (bulle de chat du site public).
+-- Écriture uniquement depuis le serveur via service_role ; pas de policy
+-- publique nécessaire (jamais affiché côté client, uniquement consulté par
+-- l'équipe HEXA via Supabase ou l'email de notification).
+create table if not exists quote_requests (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  phone text,
+  project_type text not null,
+  need_summary text not null,
+  budget_range_min integer,
+  budget_range_max integer,
+  timeline text,
+  conversation jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+alter table quote_requests enable row level security;

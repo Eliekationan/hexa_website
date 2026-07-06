@@ -71,6 +71,22 @@ L'IA ne publie jamais un article automatiquement : elle ne fait que remplir un
 brouillon (statut `draft`), à relire et publier manuellement depuis
 `/admin/blog`.
 
+## Configuration de l'agent IA de devis
+
+Une bulle de chat flottante (visible sur toutes les pages publiques) permet à
+un visiteur de décrire son projet ; l'agent (Claude Haiku 4.5, choisi pour son
+coût réduit) qualifie le besoin, propose une fourchette de devis **indicative**
+(jamais un prix ferme), puis — une fois nom, email et besoin recueillis —
+enregistre la demande dans Supabase (table `quote_requests`, créée par
+`supabase/schema.sql`) et envoie un email de notification à
+`siteConfig.contact.email` via Resend.
+
+Aucune nouvelle variable d'environnement : l'agent réutilise `ANTHROPIC_API_KEY`
+(génération) et `RESEND_API_KEY`/`RESEND_FROM_EMAIL` (notification), déjà
+configurées pour le blog et le formulaire de contact. Les montants proposés
+sont des ordres de grandeur écrits en dur dans le prompt système
+(`src/lib/quote-agent.ts`) — à ajuster si vous avez une grille tarifaire réelle.
+
 ## Scripts
 
 - `npm run dev` — serveur de développement
@@ -86,6 +102,7 @@ brouillon (statut `draft`), à relire et publier manuellement depuis
 - `src/app/(site)/` — pages publiques (`/`, `/contact`, `/mentions-legales`, `/blog`, `/blog/[slug]`), avec leur propre layout (Header/Footer du site) distinct de `/admin`.
 - `src/app/admin/` — interface d'administration du blog (`/admin/login`, `/admin/blog`), protégée par `src/middleware.ts`.
 - `src/app/api/cron/generate-draft/` — route planifiée (`vercel.json`) qui génère un brouillon d'article par IA.
+- `src/app/api/quote-agent/` — route appelée par le widget de chat (qualification de devis par IA).
 - `src/components/ui/` — primitives (Button, Card, Badge, SectionHeading).
 - `src/components/layout/` — Header, Footer, menu mobile.
 - `src/components/sections/` — sections de la page d'accueil et de la page contact.
@@ -101,6 +118,8 @@ brouillon (statut `draft`), à relire et publier manuellement depuis
 - `src/lib/auth/` — authentification admin (Supabase Auth) : client lié aux cookies, middleware, Server Actions de connexion/déconnexion.
 - `src/lib/ai-draft.ts` — génération de brouillons d'articles via l'API Claude (Anthropic).
 - `src/lib/blog-storage.ts` — upload des images de couverture vers le bucket Supabase Storage `blog-images`.
+- `src/lib/quote-agent.ts` — agent conversationnel de qualification de devis (prompt système, appel Claude avec function calling).
+- `src/components/quote-agent/QuoteAgentWidget.tsx` — bulle de chat flottante affichée sur les pages publiques.
 
 ## Référence
 

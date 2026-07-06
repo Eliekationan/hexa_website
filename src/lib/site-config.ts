@@ -24,7 +24,6 @@ export const siteConfig = {
   nav: [
     { label: "Services", href: "#services" },
     { label: "Pourquoi HEXA", href: "#pourquoi-hexa" },
-    { label: "Technologies", href: "#technologies" },
     { label: "Processus", href: "#processus" },
     { label: "Réalisations", href: "#realisations" },
     { label: "Blog", href: "/blog" },
@@ -54,12 +53,6 @@ export const siteConfig = {
       title: "La confiance se mesure aux résultats",
       description:
         "Des années d'expertise mises au service de la fiabilité et de la satisfaction de nos clients.",
-    },
-    technologies: {
-      eyebrow: "Notre stack",
-      title: "Des technologies éprouvées",
-      description:
-        "Nous choisissons des outils robustes et éprouvés, adaptés à la taille et aux ambitions de chaque projet.",
     },
     process: {
       eyebrow: "Notre méthode",
