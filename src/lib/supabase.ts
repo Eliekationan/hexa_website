@@ -32,3 +32,40 @@ export async function insertContactMessage(data: ContactMessageRecord) {
     throw error;
   }
 }
+
+interface QuoteRequestRecord {
+  name: string;
+  email: string;
+  phone?: string;
+  projectType: string;
+  needSummary: string;
+  budgetRangeMin: number;
+  budgetRangeMax: number;
+  timeline?: string;
+  conversation: unknown;
+}
+
+export async function insertQuoteRequest(data: QuoteRequestRecord) {
+  if (!supabaseAdmin) {
+    console.warn(
+      "[supabase] SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY manquants — devis non archivé en base.",
+    );
+    return;
+  }
+
+  const { error } = await supabaseAdmin.from("quote_requests").insert({
+    name: data.name,
+    email: data.email,
+    phone: data.phone ?? null,
+    project_type: data.projectType,
+    need_summary: data.needSummary,
+    budget_range_min: data.budgetRangeMin,
+    budget_range_max: data.budgetRangeMax,
+    timeline: data.timeline ?? null,
+    conversation: data.conversation,
+  });
+
+  if (error) {
+    throw error;
+  }
+}
