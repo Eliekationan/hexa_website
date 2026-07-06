@@ -74,11 +74,12 @@ brouillon (statut `draft`), à relire et publier manuellement depuis
 ## Configuration de l'agent IA de devis
 
 Une bulle de chat flottante (visible sur toutes les pages publiques) permet à
-un visiteur de décrire son projet ; l'agent (Claude Opus 4.8) qualifie le
-besoin, propose une fourchette de devis **indicative** (jamais un prix ferme),
-puis — une fois nom, email et besoin recueillis — enregistre la demande dans
-Supabase (table `quote_requests`, créée par `supabase/schema.sql`) et envoie
-un email de notification à `siteConfig.contact.email` via Resend.
+un visiteur de décrire son projet ; l'agent (Claude Haiku 4.5, choisi pour son
+coût réduit) qualifie le besoin, propose une fourchette de devis **indicative**
+(jamais un prix ferme), puis — une fois nom, email et besoin recueillis —
+enregistre la demande dans Supabase (table `quote_requests`, créée par
+`supabase/schema.sql`) et envoie un email de notification à
+`siteConfig.contact.email` via Resend.
 
 Aucune nouvelle variable d'environnement : l'agent réutilise `ANTHROPIC_API_KEY`
 (génération) et `RESEND_API_KEY`/`RESEND_FROM_EMAIL` (notification), déjà
