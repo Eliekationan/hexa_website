@@ -4,6 +4,10 @@ import { getPublishedPostBySlug } from "@/lib/blog";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+// Sans mise en cache, cette image (rendu Satori + appel Supabase) est générée
+// à chaque requête — trop lent pour le crawler LinkedIn qui la récupère
+// séparément de la page HTML lors de la génération de l'aperçu de partage.
+export const revalidate = 3600;
 
 export async function generateImageMetadata({
   params,

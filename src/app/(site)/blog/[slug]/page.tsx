@@ -10,6 +10,14 @@ import { ShareLinkedIn } from "@/components/blog/ShareLinkedIn";
 import { Badge } from "@/components/ui/Badge";
 import { siteConfig } from "@/lib/site-config";
 
+// Rendu mis en cache (ISR) plutôt que 100% dynamique : sans ça, chaque
+// requête (y compris le crawler LinkedIn qui génère l'aperçu de partage)
+// redéclenche un rendu complet + un appel Supabase, assez lent pour que
+// LinkedIn abandonne parfois avant la fin ("Impossible d'afficher l'aperçu").
+// Revalidation immédiate déjà en place par ailleurs via revalidatePath()
+// (src/app/admin/(dashboard)/blog/actions.ts) à chaque publication/édition.
+export const revalidate = 3600;
+
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
