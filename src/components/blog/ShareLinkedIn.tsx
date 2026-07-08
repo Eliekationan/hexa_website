@@ -26,6 +26,7 @@ function buildCaption(title: string, excerpt: string): string {
 // deux.
 export function ShareLinkedIn({ url, title, excerpt, className }: ShareLinkedInProps) {
   const [step, setStep] = useState<"idle" | "caption-copied" | "link-copied">("idle");
+  const [popupBlocked, setPopupBlocked] = useState(false);
 
   async function copy(text: string) {
     try {
@@ -36,14 +37,19 @@ export function ShareLinkedIn({ url, title, excerpt, className }: ShareLinkedInP
     }
   }
 
-  async function handleCopyCaption() {
-    await copy(buildCaption(title, excerpt));
-    setStep("caption-copied");
-    window.open(
+  function handleCopyCaption() {
+    // window.open doit rester le tout premier appel synchrone du clic : après
+    // un await, certains navigateurs (Safari en tête) considèrent le "geste
+    // utilisateur" expiré et bloquent silencieusement l'ouverture du nouvel
+    // onglet. La copie presse-papiers (async) est donc lancée après coup.
+    const newWindow = window.open(
       `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
       "_blank",
       "noopener,noreferrer",
     );
+    setPopupBlocked(!newWindow);
+    setStep("caption-copied");
+    void copy(buildCaption(title, excerpt));
   }
 
   async function handleCopyLink() {
@@ -64,6 +70,13 @@ export function ShareLinkedIn({ url, title, excerpt, className }: ShareLinkedInP
         <LinkedInIcon />
         Partager sur LinkedIn
       </button>
+
+      {popupBlocked && (
+        <p role="alert" className="text-xs text-red-400">
+          Votre navigateur a bloqué l&apos;ouverture de LinkedIn. Autorisez les popups
+          pour ce site, puis réessayez.
+        </p>
+      )}
 
       {step !== "idle" && (
         <div className="border-border-strong bg-surface-2 flex flex-col items-start gap-2 rounded-lg border p-3 text-xs">
