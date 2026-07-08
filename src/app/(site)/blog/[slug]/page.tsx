@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import readingTime from "reading-time";
 import { getPublishedPostBySlug, getPublishedPosts } from "@/lib/blog";
 import { ArticleCard } from "@/components/blog/ArticleCard";
+import { ShareLinkedIn } from "@/components/blog/ShareLinkedIn";
 import { Badge } from "@/components/ui/Badge";
 import { siteConfig } from "@/lib/site-config";
 
@@ -101,6 +102,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ))}
           </div>
         )}
+        <ShareLinkedIn url={`${siteConfig.url}/blog/${post.slug}`} />
       </header>
 
       {post.coverImageUrl && (
