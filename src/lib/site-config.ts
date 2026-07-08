@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Ingénierie, conseil et développement web, mobile et agentique",
   description:
     "HEXA accompagne les entreprises dans leurs projets d'ingénierie logicielle, de conseil technologique et de développement web, mobile et agentique / IA.",
-  url: "https://hexa.ci",
+  url: "https://www.hexa.ci",
   locale: "fr-CI",
   contact: {
     address: "Rue des Jardins, Cocody, Abidjan, Côte d'Ivoire",
