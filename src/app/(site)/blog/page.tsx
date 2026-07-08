@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getPublishedPosts } from "@/lib/blog";
 import { ArticleCard } from "@/components/blog/ArticleCard";
+import { NewsletterSubscribe } from "@/components/blog/NewsletterSubscribe";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import { siteConfig } from "@/lib/site-config";
@@ -49,6 +50,8 @@ export default async function BlogIndexPage({ searchParams }: BlogIndexPageProps
         title={siteConfig.sections.blog.title}
         description={siteConfig.sections.blog.description}
       />
+
+      <NewsletterSubscribe className="mx-auto mt-10 max-w-xl" />
 
       {allTags.length > 0 && (
         <div className="mt-10 flex flex-wrap justify-center gap-2">

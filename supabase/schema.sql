@@ -70,3 +70,14 @@ create table if not exists quote_requests (
 );
 
 alter table quote_requests enable row level security;
+
+-- Abonnés à la newsletter du blog (email uniquement, pas de compte/mot de
+-- passe). Écriture uniquement depuis le serveur via service_role ; pas de
+-- policy publique nécessaire.
+create table if not exists newsletter_subscribers (
+  id uuid primary key default gen_random_uuid(),
+  email text not null unique,
+  created_at timestamptz not null default now()
+);
+
+alter table newsletter_subscribers enable row level security;

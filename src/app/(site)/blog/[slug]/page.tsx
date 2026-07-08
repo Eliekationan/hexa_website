@@ -7,6 +7,7 @@ import readingTime from "reading-time";
 import { getPublishedPostBySlug, getPublishedPosts } from "@/lib/blog";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { AdminOnlyShareLinkedIn } from "@/components/blog/AdminOnlyShareLinkedIn";
+import { NewsletterSubscribe } from "@/components/blog/NewsletterSubscribe";
 import { Badge } from "@/components/ui/Badge";
 import { siteConfig } from "@/lib/site-config";
 
@@ -129,6 +130,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="markdown-preview text-foreground mt-10">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
       </div>
+
+      <NewsletterSubscribe className="mt-16" />
 
       {related.length > 0 && (
         <section className="mt-20">

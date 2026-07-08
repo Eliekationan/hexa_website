@@ -33,6 +33,31 @@ export async function insertContactMessage(data: ContactMessageRecord) {
   }
 }
 
+const POSTGRES_UNIQUE_VIOLATION = "23505";
+
+/** Retourne true si l'email était déjà abonné (pas une erreur pour l'utilisateur). */
+export async function insertNewsletterSubscriber(email: string): Promise<{
+  alreadySubscribed: boolean;
+}> {
+  if (!supabaseAdmin) {
+    console.warn(
+      "[supabase] SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY manquants — abonnement non enregistré.",
+    );
+    return { alreadySubscribed: false };
+  }
+
+  const { error } = await supabaseAdmin.from("newsletter_subscribers").insert({ email });
+
+  if (error) {
+    if (error.code === POSTGRES_UNIQUE_VIOLATION) {
+      return { alreadySubscribed: true };
+    }
+    throw error;
+  }
+
+  return { alreadySubscribed: false };
+}
+
 interface QuoteRequestRecord {
   name: string;
   email: string;
