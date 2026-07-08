@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import readingTime from "reading-time";
 import { getPublishedPostBySlug, getPublishedPosts } from "@/lib/blog";
 import { ArticleCard } from "@/components/blog/ArticleCard";
-import { ShareLinkedIn } from "@/components/blog/ShareLinkedIn";
+import { AdminOnlyShareLinkedIn } from "@/components/blog/AdminOnlyShareLinkedIn";
 import { Badge } from "@/components/ui/Badge";
 import { siteConfig } from "@/lib/site-config";
 
@@ -110,7 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ))}
           </div>
         )}
-        <ShareLinkedIn
+        <AdminOnlyShareLinkedIn
           url={`${siteConfig.url}/blog/${post.slug}`}
           title={post.title}
           excerpt={post.excerpt}
