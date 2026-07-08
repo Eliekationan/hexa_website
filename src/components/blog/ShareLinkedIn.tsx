@@ -4,18 +4,27 @@ import { useState } from "react";
 import { LinkedInIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
+const MAX_SUMMARY_LINES = 15;
+
 interface ShareLinkedInProps {
   url: string;
+  title: string;
+  excerpt: string;
   className?: string;
 }
 
-export function ShareLinkedIn({ url, className }: ShareLinkedInProps) {
+function buildShareText(title: string, excerpt: string, url: string): string {
+  const lines = [title, "", excerpt, "", "👉 Lire l'article complet :", url];
+  return lines.slice(0, MAX_SUMMARY_LINES).join("\n");
+}
+
+export function ShareLinkedIn({ url, title, excerpt, className }: ShareLinkedInProps) {
   const [copied, setCopied] = useState(false);
   const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
 
   async function handleClick() {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(buildShareText(title, excerpt, url));
       setCopied(true);
       setTimeout(() => setCopied(false), 5000);
     } catch {
@@ -40,8 +49,8 @@ export function ShareLinkedIn({ url, className }: ShareLinkedInProps) {
       </button>
       {copied && (
         <p className="text-accent text-xs">
-          Lien copié — collez-le (Ctrl+V) dans la fenêtre LinkedIn qui vient de
-          s&apos;ouvrir.
+          Résumé et lien copiés — collez-les (Ctrl+V) dans la fenêtre LinkedIn qui vient
+          de s&apos;ouvrir.
         </p>
       )}
     </div>
