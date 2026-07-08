@@ -102,7 +102,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ))}
           </div>
         )}
-        <ShareLinkedIn url={`${siteConfig.url}/blog/${post.slug}`} />
+        <ShareLinkedIn
+          url={`${siteConfig.url}/blog/${post.slug}`}
+          title={post.title}
+          excerpt={post.excerpt}
+        />
       </header>
 
       {post.coverImageUrl && (
