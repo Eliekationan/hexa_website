@@ -37,19 +37,19 @@ export function ShareLinkedIn({ url, title, excerpt, className }: ShareLinkedInP
     }
   }
 
-  function handleCopyCaption() {
-    // window.open doit rester le tout premier appel synchrone du clic : après
-    // un await, certains navigateurs (Safari en tête) considèrent le "geste
-    // utilisateur" expiré et bloquent silencieusement l'ouverture du nouvel
-    // onglet. La copie presse-papiers (async) est donc lancée après coup.
+  async function handleCopyCaption() {
+    // L'API presse-papiers exige que le document ait le focus, or window.open
+    // fait basculer le focus vers le nouvel onglet — la copie doit donc être
+    // terminée AVANT d'ouvrir LinkedIn, sans quoi elle échoue silencieusement
+    // (confirmé en test réel : légende jamais copiée quand ouvert en premier).
+    await copy(buildCaption(title, excerpt));
+    setStep("caption-copied");
     const newWindow = window.open(
       `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
       "_blank",
       "noopener,noreferrer",
     );
     setPopupBlocked(!newWindow);
-    setStep("caption-copied");
-    void copy(buildCaption(title, excerpt));
   }
 
   async function handleCopyLink() {
