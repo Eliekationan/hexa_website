@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { LinkedInIcon } from "@/components/icons";
+import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const MAX_SUMMARY_LINES = 15;
@@ -13,32 +14,48 @@ interface ShareLinkedInProps {
   className?: string;
 }
 
-function buildShareText(title: string, excerpt: string, url: string): string {
-  const lines = [title, "", excerpt, "", "👉 Lire l'article complet :", url];
+function buildCaption(title: string, excerpt: string): string {
+  const lines = [title, "", excerpt, "", "👉 Lire l'article complet :"];
   return lines.slice(0, MAX_SUMMARY_LINES).join("\n");
 }
 
+// LinkedIn efface tout le texte collé dès qu'un lien se trouve dans le même
+// geste de collage (confirmé en test réel) : coller "légende + lien" d'un
+// coup ne laisse que la carte d'aperçu, sans la légende. Copier la légende
+// et le lien séparément — et les coller l'un après l'autre — préserve les
+// deux.
 export function ShareLinkedIn({ url, title, excerpt, className }: ShareLinkedInProps) {
-  const [copied, setCopied] = useState(false);
-  const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+  const [step, setStep] = useState<"idle" | "caption-copied" | "link-copied">("idle");
 
-  async function handleClick() {
+  async function copy(text: string) {
     try {
-      await navigator.clipboard.writeText(buildShareText(title, excerpt, url));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 5000);
+      await navigator.clipboard.writeText(text);
+      return true;
     } catch {
-      // Presse-papiers indisponible (permissions navigateur) : LinkedIn
-      // s'ouvre quand même, l'utilisateur colle le lien manuellement.
+      return false;
     }
-    window.open(shareUrl, "_blank", "noopener,noreferrer");
+  }
+
+  async function handleCopyCaption() {
+    await copy(buildCaption(title, excerpt));
+    setStep("caption-copied");
+    window.open(
+      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  }
+
+  async function handleCopyLink() {
+    await copy(url);
+    setStep("link-copied");
   }
 
   return (
     <div className="flex flex-col items-start gap-2">
       <button
         type="button"
-        onClick={handleClick}
+        onClick={handleCopyCaption}
         className={cn(
           "border-border-strong text-foreground/80 hover:border-accent/60 hover:text-accent inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
           className,
@@ -47,11 +64,21 @@ export function ShareLinkedIn({ url, title, excerpt, className }: ShareLinkedInP
         <LinkedInIcon />
         Partager sur LinkedIn
       </button>
-      {copied && (
-        <p className="text-accent text-xs">
-          Résumé et lien copiés — collez-les (Ctrl+V) dans la fenêtre LinkedIn qui vient
-          de s&apos;ouvrir.
-        </p>
+
+      {step !== "idle" && (
+        <div className="border-border-strong bg-surface-2 flex flex-col items-start gap-2 rounded-lg border p-3 text-xs">
+          <p className="text-foreground/80">
+            1. Légende copiée — collez-la (Ctrl+V) dans la fenêtre LinkedIn qui vient de
+            s&apos;ouvrir.
+          </p>
+          <p className="text-foreground/80">
+            2. Revenez ici, copiez le lien ci-dessous, puis collez-le (Ctrl+V) à la fin,
+            sur une nouvelle ligne.
+          </p>
+          <Button type="button" size="sm" variant="secondary" onClick={handleCopyLink}>
+            {step === "link-copied" ? "Lien copié ✓" : "Copier le lien"}
+          </Button>
+        </div>
       )}
     </div>
   );
