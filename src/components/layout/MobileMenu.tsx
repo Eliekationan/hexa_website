@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { CloseIcon } from "@/components/icons";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -87,7 +88,8 @@ export function MobileMenu({
         open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
       )}
     >
-      <div className="flex items-center justify-end px-6 pt-6">
+      <div className="flex items-center justify-between px-6 pt-6">
+        <ThemeToggle />
         <button
           ref={closeButtonRef}
           type="button"

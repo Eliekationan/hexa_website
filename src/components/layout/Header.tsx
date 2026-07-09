@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { useScrollSpy } from "@/components/layout/useScrollSpy";
 
 const navItems = siteConfig.nav.filter((item) => item.href !== siteConfig.cta.href);
@@ -81,22 +82,26 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="hidden lg:block">
-            <Button href={siteConfig.cta.href} size="sm">
-              {siteConfig.cta.label}
-            </Button>
-          </div>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Ouvrir le menu"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            className="text-foreground flex h-11 w-11 items-center justify-center rounded-full lg:hidden"
-          >
-            <MenuIcon />
-          </button>
+            <div className="hidden lg:block">
+              <Button href={siteConfig.cta.href} size="sm">
+                {siteConfig.cta.label}
+              </Button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Ouvrir le menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className="text-foreground flex h-11 w-11 items-center justify-center rounded-full lg:hidden"
+            >
+              <MenuIcon />
+            </button>
+          </div>
         </div>
       </header>
 
