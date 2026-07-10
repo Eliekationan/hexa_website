@@ -81,3 +81,20 @@ create table if not exists newsletter_subscribers (
 );
 
 alter table newsletter_subscribers enable row level security;
+
+-- Notes des articles de blog (1 à 5 étoiles). Un vote par navigateur est
+-- appliqué côté client (localStorage) ; pas de compte lecteur, donc pas de
+-- déduplication forte côté serveur au-delà de la limitation de débit par IP
+-- de la route. Écriture uniquement depuis le serveur via service_role.
+-- La moyenne/le nombre de votes sont calculés à la volée (peu de volume
+-- attendu), pas de colonnes d'agrégat sur blog_posts.
+create table if not exists blog_post_ratings (
+  id uuid primary key default gen_random_uuid(),
+  post_id uuid not null references blog_posts (id) on delete cascade,
+  rating smallint not null check (rating between 1 and 5),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists blog_post_ratings_post_id_idx on blog_post_ratings (post_id);
+
+alter table blog_post_ratings enable row level security;

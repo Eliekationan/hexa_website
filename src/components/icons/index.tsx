@@ -197,3 +197,11 @@ export function MoonIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function StarIcon({ filled, ...props }: IconProps & { filled?: boolean }) {
+  return (
+    <svg {...base(props)} fill={filled ? "currentColor" : "none"}>
+      <path d="M12 3.5 14.9 9.4 21.4 10.3 16.7 14.9 17.8 21.4 12 18.3 6.2 21.4 7.3 14.9 2.6 10.3 9.1 9.4Z" />
+    </svg>
+  );
+}

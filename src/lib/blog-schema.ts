@@ -46,6 +46,10 @@ export const blogPostFormSchema = z.object({
 
 export type BlogPostFormValues = z.infer<typeof blogPostFormSchema>;
 
+export const blogRatingSchema = z.object({
+  rating: z.number().int().min(1, "Note invalide.").max(5, "Note invalide."),
+});
+
 export function parseTags(raw: string): string[] {
   return Array.from(
     new Set(

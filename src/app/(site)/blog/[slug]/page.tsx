@@ -8,6 +8,7 @@ import { getPublishedPostBySlug, getPublishedPosts } from "@/lib/blog";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { AdminOnlyShareLinkedIn } from "@/components/blog/AdminOnlyShareLinkedIn";
 import { NewsletterSubscribe } from "@/components/blog/NewsletterSubscribe";
+import { StarRating } from "@/components/blog/StarRating";
 import { Badge } from "@/components/ui/Badge";
 import { siteConfig } from "@/lib/site-config";
 
@@ -131,7 +132,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
       </div>
 
-      <NewsletterSubscribe className="mt-16" />
+      <StarRating slug={post.slug} className="mt-12" />
+
+      <NewsletterSubscribe className="mt-10" />
 
       {related.length > 0 && (
         <section className="mt-20">
