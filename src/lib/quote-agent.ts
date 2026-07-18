@@ -1,6 +1,7 @@
 import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
 import { services } from "@/data/services";
+import { pricingGrid, dayRateFcfa, autrePricingNote } from "@/data/pricing";
 import { siteConfig } from "@/lib/site-config";
 import { quoteSubmissionSchema, type ChatMessage } from "@/lib/quote-schema";
 import { insertQuoteRequest } from "@/lib/supabase";
@@ -52,6 +53,26 @@ const SUBMIT_QUOTE_TOOL: Anthropic.Tool = {
   },
 };
 
+function formatFcfa(amount: number): string {
+  return amount.toLocaleString("fr-FR");
+}
+
+function formatPricingGrid(): string {
+  return pricingGrid
+    .map((entry) => {
+      const title =
+        services.find((s) => s.slug === entry.projectType)?.title ?? entry.projectType;
+      const tierLines = entry.tiers
+        .map(
+          (t) =>
+            `  - ${t.label} : ${formatFcfa(t.minFcfa)} – ${formatFcfa(t.maxFcfa)} FCFA`,
+        )
+        .join("\n");
+      return `${title} :\n${tierLines}`;
+    })
+    .join("\n");
+}
+
 function buildSystemPrompt(): string {
   const serviceList = services.map((s) => `- ${s.title} : ${s.description}`).join("\n");
 
@@ -72,12 +93,10 @@ Déroulé de la conversation :
 Règles :
 - Réponds toujours en français, sur un ton chaleureux, professionnel et concis (2 à 4 phrases par message maximum).
 - Ne donne jamais un prix ferme : présente toujours les montants comme une fourchette indicative, à confirmer par l'équipe.
-- Base tes fourchettes indicatives sur ces ordres de grandeur (en FCFA), à ajuster selon la complexité décrite :
-  - Site vitrine simple : 500 000 – 1 500 000 FCFA
-  - Plateforme web ou application complexe : 2 000 000 – 8 000 000 FCFA
-  - Application mobile : 3 000 000 – 10 000 000 FCFA
-  - Agent IA / agentique : 1 500 000 – 6 000 000 FCFA
-  - Conseil ou audit ponctuel : 300 000 – 1 500 000 FCFA
+- Base tes fourchettes indicatives sur cette grille tarifaire (en FCFA), à ajuster selon la complexité décrite :
+${formatPricingGrid()}
+- Pour un engagement en régie (temps et matériel), le taux journalier moyen se situe entre ${formatFcfa(dayRateFcfa.minFcfa)} et ${formatFcfa(dayRateFcfa.maxFcfa)} FCFA.
+- ${autrePricingNote}
 - Si le visiteur pose une question hors sujet, réponds brièvement puis recentre la conversation sur son besoin.
 - N'invente jamais d'informations précises sur HEXA (références clients, délais garantis) que tu ne connais pas.`;
 }

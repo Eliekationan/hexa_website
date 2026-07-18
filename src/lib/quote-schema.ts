@@ -20,6 +20,8 @@ export const projectTypes = [
   "autre",
 ] as const;
 
+export type ProjectType = (typeof projectTypes)[number];
+
 export const quoteSubmissionSchema = z.object({
   name: z.string().trim().min(1).max(120),
   email: z.string().trim().email(),
