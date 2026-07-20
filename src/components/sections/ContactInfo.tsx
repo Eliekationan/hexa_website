@@ -6,6 +6,7 @@ import {
   LinkedInIcon,
   XIcon,
   GitHubIcon,
+  WhatsAppIcon,
 } from "@/components/icons";
 import { siteConfig } from "@/lib/site-config";
 
@@ -49,6 +50,21 @@ export function ContactInfo() {
             <p className="text-foreground text-sm font-medium">Téléphone</p>
             <p className="text-muted group-hover:text-accent text-sm transition-colors">
               {siteConfig.contact.phone}
+            </p>
+          </div>
+        </a>
+
+        <a
+          href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-start gap-3"
+        >
+          <WhatsAppIcon className="text-accent mt-0.5 shrink-0" />
+          <div>
+            <p className="text-foreground text-sm font-medium">WhatsApp</p>
+            <p className="text-muted group-hover:text-accent text-sm transition-colors">
+              {siteConfig.contact.whatsapp}
             </p>
           </div>
         </a>

@@ -8,6 +8,7 @@ import {
   LinkedInIcon,
   XIcon,
   GitHubIcon,
+  WhatsAppIcon,
 } from "@/components/icons";
 import { siteConfig } from "@/lib/site-config";
 import { services } from "@/data/services";
@@ -84,6 +85,17 @@ export function Footer() {
               >
                 <PhoneIcon className="shrink-0" />
                 {siteConfig.contact.phone}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-accent flex items-center gap-2 text-sm transition-colors"
+              >
+                <WhatsAppIcon className="shrink-0" />
+                {siteConfig.contact.whatsapp} (WhatsApp)
               </a>
             </li>
             <li className="text-muted flex items-start gap-2 text-sm">

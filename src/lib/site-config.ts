@@ -9,7 +9,8 @@ export const siteConfig = {
   contact: {
     address: "Rue des Jardins, Cocody, Abidjan, Côte d'Ivoire",
     email: "contact@hexa.ci",
-    phone: "+225 07 58 752 437",
+    phone: "+225 01 51 689 054",
+    whatsapp: "+225 07 58 752 437",
     hours: "7j/7, 8h30 – 18h00",
     mapEmbedUrl:
       "https://www.openstreetmap.org/export/embed.html?bbox=-3.9994%2C5.3398%2C-3.9694%2C5.3598&layer=mapnik&marker=5.3498%2C-3.9844",
